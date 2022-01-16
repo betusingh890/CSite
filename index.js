@@ -9,7 +9,7 @@ app.get("/", (req,res)=>{
 
 
 
-var PORT = 3000;
+var PORT = process.env.PORT || 8000;
 
 app.listen(PORT, ()=>{
     console.log("backend running at port " + PORT);
