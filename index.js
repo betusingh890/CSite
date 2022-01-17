@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 
 import connectDB from "./sourceFiles/connectdb.js";
 import SignupFile from "./sourceFiles/signup.js";
@@ -7,15 +8,15 @@ import SignupFile from "./sourceFiles/signup.js";
 var app = express();
 connectDB();
 
-app.get("/", (req,res)=>{
-    res.send("main of backend");
-});
-
-
 app.use("/signup", SignupFile);
 
 
-
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static("client/build"));  
+    app.get("*", (req,res) =>{
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })  
+}
 
 var PORT = process.env.PORT || 8000;
 
