@@ -1,10 +1,18 @@
 import express from "express";
 
+import connectDB from "./sourceFiles/connectdb.js";
+import SignupFile from "./sourceFiles/signup.js";
+
+
 var app = express();
+connectDB();
 
 app.get("/", (req,res)=>{
     res.send("main of backend");
-})
+});
+
+
+app.use("/signup", SignupFile);
 
 
 
