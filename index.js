@@ -1,6 +1,11 @@
 import express from "express";
 import path from "path";
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import connectDB from "./sourceFiles/connectdb.js";
 import SignupFile from "./sourceFiles/signup.js";
 import LoginFile from "./sourceFiles/login.js";
