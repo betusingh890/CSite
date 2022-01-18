@@ -3,12 +3,14 @@ import path from "path";
 
 import connectDB from "./sourceFiles/connectdb.js";
 import SignupFile from "./sourceFiles/signup.js";
+import LoginFile from "./sourceFiles/login.js";
 
 
 var app = express();
 connectDB();
 
 app.use("/signup", SignupFile);
+app.use("/login", LoginFile);
 
 
 if(process.env.NODE_ENV === 'production'){
@@ -18,7 +20,7 @@ if(process.env.NODE_ENV === 'production'){
     })  
 }
 
-var PORT = process.env.PORT || 8000;
+var PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
     console.log("backend running at port " + PORT);
