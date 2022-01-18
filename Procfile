@@ -1,0 +1,1 @@
+web cd frontend /n npm i -D --save-exact mini-css-extract-plugin@2.4.5
