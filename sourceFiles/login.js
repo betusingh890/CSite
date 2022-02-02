@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import bcrypt, { hash } from "bcrypt";
 
 import Users from "../models/users.js";
 
@@ -16,7 +17,6 @@ app.post("/", (req,res)=>{
     console.log("data recieved");
     console.log(data);
     Users.findOne({email: data.email}, function(err, result){
-        console.log(result);
         if(err){
             console.log(err);
         }
@@ -24,12 +24,21 @@ app.post("/", (req,res)=>{
             res.send("Wrong Email");
         }
         else{
-            if(result.password == data.password){
-                res.send("Login Succesfull");
-            }
-            else{
-                res.send("Password Error")
-            }
+            bcrypt.compare(data.password, result.password, function(err, result){
+                if(err){
+                    console.log(err);
+                    console.log("there was an error with checking hashing password");
+                }
+                else{
+                    if(result === true){
+                        res.send("Login Succesfull");
+                    }
+                    else{
+                        res.send("Password Error")
+                    }
+                }
+            })
+            
         }
     })
 })

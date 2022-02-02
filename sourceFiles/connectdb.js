@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const URI = "mongodb+srv://Prasoon:prasoontan1@cluster0.wcl6o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+dotenv.config();
+const URI = process.env.MONGO_URI;
+
+
+
 
 async function connectDB(){
    try{
