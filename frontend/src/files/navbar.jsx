@@ -1,11 +1,30 @@
 import React from "react";
+import axios from "axios";
 import {Link} from "react-router-dom"
-import {useSelector} from "react-redux";
 
+import { useSelector, useDispatch } from 'react-redux'
+import {LogInAction, LogOutAction, setEmail} from "../actions.js";
 
 
 function Navbar(){
+
+    React.useEffect(()=>{
+        checkLogin();
+    }, [])
+
+    const dispatch = useDispatch()
+
     const isLoggedIn = useSelector((state) => state.LoggedIn);
+
+    const checkLogin = async () => {
+        var response = await axios.get("/rememberlogin");
+        console.log(response);
+        if(response.data.status === true){
+            dispatch(setEmail(response.data.email));
+            dispatch(LogInAction());
+        }
+
+    }
 
     return (
         <div className = "navbar navbar-expand-lg navbar-dark bg-dark">

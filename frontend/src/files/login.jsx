@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
 import {LogInAction, LogOutAction, setEmail} from "../actions.js";
 
+axios.defaults.withCredentials = true;
 function Login(){
     const dispatch = useDispatch()
     var [password, setPassword] = React.useState("");
@@ -15,9 +16,9 @@ function Login(){
 
     async function sendData(data){
         try{
-            var res = await axios.post("/login", data);
+            var res = await axios.get("/login", {params: {data}});
             console.log(res);
-            if(res.data === "Login Succesfull"){
+            if(res.data === 'cookie bieng sent'){
                 dispatch(setEmail(data.email));
                 dispatch(LogInAction());
             }
